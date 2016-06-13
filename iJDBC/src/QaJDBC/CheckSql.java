@@ -7,7 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
+
+import iReadText.readText;
 
 public class CheckSql {
 
@@ -24,6 +27,8 @@ public class CheckSql {
 				     static Connection con=null;    
 				     static ResultSet rs=null;
 				     static Statement stmt = null;
+				     static readText rt = new readText();
+					 private static String iSQLSentence = rt.checkTestTxt();
 			 
 			 
 		     /**
@@ -38,7 +43,6 @@ public class CheckSql {
 					}				 
 			 }
 			 
-
 			 	/**
 				 * 获取数据库连接
 				 */
@@ -48,7 +52,7 @@ public class CheckSql {
 					try{
 						con=DriverManager.getConnection(URL, DBNAME, DBPASS);
 						con.setAutoCommit(true);
-						qiqichacha(con);
+						iCheckSQL(con, iSQLSentence);
 					}catch(SQLException e){
 						e.printStackTrace();
 						log.error("数据库连接失败！");
@@ -64,17 +68,17 @@ public class CheckSql {
 				 * @param con
 				 * @throws SQLException
 				 */
-				private static void qiqichacha(Connection con) throws SQLException {
+				private static void iCheckSQL(Connection con,String SQLSentence) throws SQLException {
 					// TODO Auto-generated method stub
 					System.out.println("已经连接到数据库...");
+					String sql = SQLSentence;
 					stmt=con.createStatement();
-					       ResultSet rs=stmt.executeQuery("SELECT * from or_Order ");
-					    
+					       ResultSet rs=stmt.executeQuery(sql);					    
 					     	while(rs.next())
-					     {   String name=rs.getString("OrderId"); 
-					     	     System.out.println(name);
-					       	 }
-					  
+					     {   
+					     		String name=rs.getString(5); 
+					     	    System.out.println(name);
+					       	 }					  
 					   stmt.close();
 					       	con.close(); 
 					    
@@ -115,12 +119,13 @@ public class CheckSql {
 				}
 				
 				
-			 
+			 @Test
 				/**
 				 * main方法
 				 * @param args
 				 */
-				public static void main(String[] args) {
+//				public static void main(String[] args) {
+				public void iSQLConnect(){
 					System.out.println("开始创建链接");
 					CheckSql itd = new CheckSql();
 					itd.testCheckSqlDriver();
