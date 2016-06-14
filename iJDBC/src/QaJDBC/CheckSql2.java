@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -11,11 +12,10 @@ import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
 
 import iReadText.readText;
-import utils.Log;
 
-public class CheckSql {
+public class CheckSql2 {
 
-			static Log log = new Log(CheckSql.class);
+			static Logger log = Logger.getLogger(CheckSql2.class);
 			//数据库的连接驱动，一般是不需要变的
 		     final static String DRIVER="com.microsoft.sqlserver.jdbc.SQLServerDriver";
 		    //数据库连接的URL,1433为默认的数据库端口号，700Store.Order为当前你要操作的数据库名
@@ -74,10 +74,15 @@ public class CheckSql {
 					System.out.println("已经连接到数据库...");
 					String sql = SQLSentence;
 					stmt=con.createStatement();
-					       ResultSet rs=stmt.executeQuery(sql);					    
+					ResultSet rs=stmt.executeQuery(sql);
+					
+					ResultSetMetaData rsmd = rs.getMetaData(); 
+					int numberOfColumns = rsmd.getColumnCount(); //得到数据集的列数  
+
+
 					     	while(rs.next())
 					     {   
-					     		String name=rs.getString(5); 
+					     		String name=rs.getString(1); 
 					     	    System.out.println(name);
 					       	 }					  
 					   stmt.close();
@@ -126,7 +131,7 @@ public class CheckSql {
 //				public static void main(String[] args) {
 				public void iSQLConnect(){
 					System.out.println("开始创建链接");
-					CheckSql itd = new CheckSql();
+					CheckSql2 itd = new CheckSql2();
 					itd.testCheckSqlDriver();
 					itd.getConnection();
 					itd.close(rs, stmt, con);
