@@ -1,21 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
+<!-- 定义日志级别 -->
 <Appenders>
+	<!-- 日期格式我做了修改，这样就不日期格式的错误了 -->
     <Console name="Console" target="SYSTEM_OUT">
-        <PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
+		<PatternLayout pattern="$${date:yyyy-MM HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
     </Console>
-    <File name="log" fileName="logs/test.log" append="false">
-        <PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>
-    </File>
-</Appenders>    
+	<File name="log" fileName="logs/test.log" append="false">
+		<PatternLayout pattern="%$${date:yyyy-MM HH:mm:ss} %-5level %class{36} %L %M - %msg%xEx%n"/>
+	</File>	
+    <RollingFile name="RollingFile" fileName="logs/ijdbc.log"
+							          filePattern="dist/$${date:yyyy-MM}/webqlog-%d{MM-dd-yyyy}-%i.log.gz">
+							                   <PatternLayout pattern="[%-5p] %d %c - %m%n" />
+									                   <Policies>
+										                   <TimeBasedTriggeringPolicy />
+										                   <SizeBasedTriggeringPolicy size="25 KB" />
+									                   </Policies>
+							                   <DefaultRolloverStrategy max="20"/>
+	</RollingFile>
+</Appenders> 
+
+<!-- 定义Logger，logger name 对应日志类 -->   
 <Loggers>
-    <Logger name="com.Log" level="all">
+    <Logger name="utils.Log" level="all">
         <AppenderRef ref="Console"/>
         <AppenderRef ref="log"/>
+        <AppenderRef ref="RollingFile"/>
     </Logger>
     <Root level="trace">
         <AppenderRef ref="Console"/>
         <AppenderRef ref="log"/>
+        <AppenderRef ref="RollingFile"/>
     </Root>
   </Loggers>
 </Configuration>

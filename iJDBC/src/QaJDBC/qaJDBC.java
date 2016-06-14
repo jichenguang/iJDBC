@@ -12,7 +12,7 @@ import iJDBC.BaseDao;
 public class qaJDBC {
 	
 	// 使用log4j记录日志
-		private static Logger logger = Logger.getLogger(BaseDao.class);
+		private static Logger logger = Logger.getLogger(qaJDBC.class);
 		// 连接驱动
 		private static final String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 		// 连接路径
