@@ -1,2 +1,1 @@
-%$ INFO  iReadText.readText 32 checkTestTxt - /Users/700sfriend/iJDBC/iJDBC
-%$ INFO  iReadText.readText 37 checkTestTxt - /Users/700sfriend/iJDBC/iJDBC/src/iReadText/readText.txt
+%$ ERROR iJDBC.JdbcTest 50 ttxx - @!@@!@@!@!

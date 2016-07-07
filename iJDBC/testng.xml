@@ -3,8 +3,8 @@
 <suite name="Suite" parallel="methods">
   <test name="Test">
     <classes>
-      <!-- <class name="iJDBC.JdbcTest"/> -->
-      <class name="QaJDBC.CheckSql2"/>
+      <class name="iJDBC.JdbcTest"/>
+      <!-- <class name="QaJDBC.CheckSql2"/> -->
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
